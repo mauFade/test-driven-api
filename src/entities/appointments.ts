@@ -16,6 +16,17 @@ export class Appointment {
   }
 
   constructor(props: IAppointmentsDTO) {
+    const { endsAt, startsAt } = props;
+
+    // Data de início não pode ser diferente do momento atual
+    if (startsAt <= new Date()) {
+      throw new Error("Start date cannot de different than now");
+    }
+
+    if (endsAt <= startsAt) {
+      throw new Error("Start date cannot be equal or lesser than end date.");
+    }
+
     this.props = props;
   }
 }
