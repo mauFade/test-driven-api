@@ -22,7 +22,8 @@ test("Customer cannot create appointment with end date before end date", () => {
   const startsAt = new Date();
   const endsAt = new Date();
 
-  endsAt.setDate(endsAt.getDate() - 1);
+  startsAt.setDate(startsAt.getDate() + 2);
+  endsAt.setDate(endsAt.getDate() + 1);
 
   expect(() => {
     return new Appointment({
