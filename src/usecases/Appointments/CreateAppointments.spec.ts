@@ -9,16 +9,22 @@ describe("create appointment tests", () => {
   // System under test
   const sut = new CreateAppointment(appointmentRepository);
 
-  it("Should create an appointment", async () => {
+  it("Should not create an appointment with overlapping dates", async () => {
     const startsAt = getFutureDate("2022-08-10");
-    const endsAt = getFutureDate("2022-08-11");
+    const endsAt = getFutureDate("2022-08-15");
 
-    await expect(
+    await sut.execute({
+      customer: "Jon Doe",
+      endsAt,
+      startsAt,
+    });
+
+    expect(
       sut.execute({
         customer: "Jon Doe",
-        endsAt,
-        startsAt,
+        endsAt: getFutureDate("2022-08-14"),
+        startsAt: getFutureDate("2022-08-18"),
       })
-    ).resolves.toBeInstanceOf(Appointment);
+    ).rejects.toBeInstanceOf(Error);
   });
 });
