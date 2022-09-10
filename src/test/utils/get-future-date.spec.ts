@@ -4,5 +4,5 @@ import { getFutureDate } from "./get-future-date";
 test("Increases one year test", () => {
   const year = new Date().getFullYear();
 
-  expect(getFutureDate(`${year}-08-10`).getFullYear()).toBe(2023);
+  expect(getFutureDate(`${year}-08-10`).getFullYear()).toEqual(2023);
 });
